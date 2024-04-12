@@ -23,7 +23,7 @@ class CajaDeAhorro:
         return aux
     def depositar(self, y):
         if y > 0:
-            aux = self.__saldo += y
+            aux = self.__saldo + y
             return aux
     def validarCUIL(self, c):
         xc = c.split('-')

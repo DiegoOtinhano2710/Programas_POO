@@ -13,7 +13,7 @@ class gestorm:
         reader = csv.reader(archivo, delimiter=';')     #se usa esta variable para leer los datos del archivo csv. el delimiter sirve para separar cada dato
         bandera=True
         for fila in reader:                         #fila es el arreglo que trae los datos. cada componente trae un dato que fueron separados por los ';'
-            if bandera==True:                       #las filas de los csv son arreglos, el primer arreglo de todos es la cabecera que solo tiene el nombre de los datos. no interesa guardar
+            if bandera==True:                      #las filas de los csv son arreglos, el primer arreglo de todos es la cabecera que solo tiene el nombre de los datos. no interesa guardar
                 bandera=False                       #se usa esta bandera para que la primera vez que entra solo la cambie salteando la cabecera. las siguentes veces entran por el else
             else:
                 patente=fila[0]                     #en el arreglo 'fila' componente 0 se guarda la patente
@@ -24,12 +24,22 @@ class gestorm:
                 self.agregarmoto(unamoto)           #llama al metodo agregar moto para que guarde ese objeto en la lista
     
     def buscar(self, xpat):
-        indice=0
-        retorno=None
+        i=0
         bandera=False
-        while not bandera and indice < len(self.__listamoto):
-            if self.__listamoto[indice].getpat()==xpat:
+        while not bandera and i < len(self.__listamoto):
+            if self.__listamoto[i].getpat()==xpat:
                 bandera=True
             else:
                 indice += 1
         return bandera
+    
+    def devolvernya(self, pat):
+        i=0
+        bandera=False
+        while not bandera and i < len(self.__listamoto):
+            if self.__listamoto[i].getpat()==pat:
+                bandera=True
+                nom=self.__listamoto[i].getNyA()
+            else:
+                indice += 1
+        return nom

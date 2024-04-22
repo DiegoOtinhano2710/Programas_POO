@@ -1,8 +1,9 @@
 from classmoto import moto
+import csv
 class gestorm:
     __listamoto:list
     def __init__(self):
-        self.__listamoto:[]                     #crea la lista vacía
+        self.__listamoto=[]                     #crea la lista vacía
 
     def agregarmoto(self, unamoto):
         self.__listamoto.append(unamoto)        #agrega una componente a la lista con los datos de la moto
@@ -21,3 +22,14 @@ class gestorm:
                 kilom=fila[3]                       #en el arreglo 'fila' componente 3 se guarda el kilometraje
                 unamoto = moto(patente, marca, NyA, kilom)  #crea una instancia de la clase moto y envía las variables leídas del csv como parametros
                 self.agregarmoto(unamoto)           #llama al metodo agregar moto para que guarde ese objeto en la lista
+    
+    def buscar(self, xpat):
+        indice=0
+        retorno=None
+        bandera=False
+        while not bandera and indice < len(self.__listamoto):
+            if self.__listamoto[indice].getpat()==xpat:
+                bandera=True
+            else:
+                indice += 1
+        return bandera

@@ -9,3 +9,12 @@ class moto:
         self.__marca = xmar
         self.__NyAconductor = xnom
         self.__kilometraje = xkilom
+    
+    def getpat(self):
+        return self.__patente
+    def getmarca(self):
+        return self.__marca
+    def getNyA(self):
+        return self.__NyAconductor
+    def getk(self):
+        return self.__kilometraje

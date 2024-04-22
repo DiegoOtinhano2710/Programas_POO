@@ -5,7 +5,7 @@ class moto:
     __kilometraje: float
 
     def __init__(self, xpat, xmar, xnom, xkilom):               #recibe del metodo 'leerdatos' los parametros para construir el objeto con esos datos
-        self.__patente = xpat
+        self.__patente = xpat                                   #pruebaxd
         self.__marca = xmar
         self.__NyAconductor = xnom
         self.__kilometraje = xkilom

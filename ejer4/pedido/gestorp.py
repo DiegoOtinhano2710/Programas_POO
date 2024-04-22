@@ -39,3 +39,18 @@ class gestorpedi:
                     self.__listapedido[j], self.__listapedido[j+1] = self.__listapedido[j+1], self.__listapedido[j]
     
     def promedio(self, pat):
+        i=0
+        prom=0
+        cant=0
+        band=False
+        while not band and i < len(self.__listapedido[i]):
+            if pat == self.__listapedido[i].getasign():
+                j=i
+                while pat == self.__listapedido[j].getasign():
+                    prom += float(self.__listapedido[i].getreal)
+                    cant += 1
+                    j+=1
+                band=True
+            else: 
+                i+=1
+        return(prom/cant)

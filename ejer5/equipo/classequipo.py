@@ -14,4 +14,15 @@ class equipo:
         self.__difgoles=xdif
         self.__puntos=xpun
 
-    
+    def getid (self):
+        return self.__id
+    def getnom (self):
+        return self.__nombre
+    def getgola (self):
+        return self.__golesA
+    def getgolc (self):
+        return self.__golesC
+    def getdif (self):
+        return self.__difgoles
+    def getpunto (self):
+        return self.__puntos

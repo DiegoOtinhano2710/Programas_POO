@@ -13,3 +13,13 @@ class fecha:
         self.__cantgolloc=xcantl
         self.__cantgolvis=xcantv
     
+    def getfecha (self):
+        return self.__fechapartido
+    def getidl (self):
+        return self.__idlocal
+    def getidv (self):
+        return self.__idvisita
+    def getgoll (self):
+        return self.__cantgolloc
+    def getgolv (self):
+        return self.__cantgolvis

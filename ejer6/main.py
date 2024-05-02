@@ -7,12 +7,13 @@ if __name__=="__main__":
     if opcion=='a':
         dni=input("Ingresar DNI: ")
         ap, nom, cvu, saldo = gc.buscar(dni)
-        total=gt.calcular(cvu)
-        saldo += total
         print("Apellido: {}\nNombre: {}\nCVU: {}\nSaldo: {}".format(ap,nom,cvu,saldo))
-        gc.actualizarsaldo(cvu,saldo)
     elif opcion=='b':
         nuevoporc=float(input("Ingresar nuevo porcentaje anual del rendimiento: "))
         gc.actporc(nuevoporc)
     elif opcion=='c':
-        print("xd")
+
+
+    elif opcion=='d':
+        cvu=input("Ingresar cvu: ")
+        total=gt.calcular(cvu)

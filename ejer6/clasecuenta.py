@@ -5,16 +5,14 @@ class Cuenta:
     __telefono:str
     __saldo:float
     __cvu:str
-    __porcanual=0
-
-    def __init__(self,ap,nom,dni,tel,saldo,cvu,porc):
+    __porcanual=0.68
+    def __init__(self,ap,nom,dni,tel,saldo,cvu):
         self.__apellido=ap
         self.__nombre=nom
         self.__dni=dni
         self.__telefono=tel
         self.__saldo=saldo
         self.__cvu=cvu
-        self.__porcanual=(porc/100)
     
     def getap(self):
         return self.__apellido
@@ -32,5 +30,6 @@ class Cuenta:
         return self.__porcanual
     def setsaldo(self,actualizacion):
         self.__saldo=actualizacion
-    def setporc(self,nuevo):
-        self.__porcanual=(nuevo/100)
+    @classmethod
+    def setporc(cls, nuevo):
+        cls.__porcanual=(nuevo/100)

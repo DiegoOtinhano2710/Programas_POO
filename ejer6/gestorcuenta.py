@@ -24,8 +24,7 @@ class Gcuenta:
                 tel=fila[3]
                 saldo=float(fila[4])
                 cvu=fila[5]
-                porc=float(fila[6])
-                unacuenta=Cuenta(ap,nom,dni,tel,saldo,cvu,porc)
+                unacuenta=Cuenta(ap,nom,dni,tel,saldo,cvu)
                 self.agregar(unacuenta)
         archivo.close()
 

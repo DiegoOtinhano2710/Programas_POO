@@ -28,7 +28,7 @@ class Gcuenta:
                 self.agregar(unacuenta)
         archivo.close()
 
-    def buscar(self, xdni):
+    def buscar(self, xdni):                 #para el A
         i=0
         band=True
         while i<len(self.__Lcuenta) and band:
@@ -42,7 +42,30 @@ class Gcuenta:
                 i+=1
         return xap, xnom, xcvu, xsaldo
     
-    def actualizarsaldo(self,cvu,saldo):
+    def actporc(self, xpor):                #para el B
+        self.__Lcuenta[0].setporc(xpor)
+    
+    def itemc(self):                        #para el C
+        porcdiario=round(self.__Lcuenta.getporc() / 365, 2) #obtiene porc diario
+        porcdiario/=100                                     #lo obtiene en decimales
+        nuevodiario=1+porcdiario                            #calcula el interés
+        for i in range(len(self.__Lcuenta)):
+            saldo=self.__Lcuenta[i].getsaldo()
+            saldo*=nuevodiario
+            self.__Lcuenta[i].setsaldo(saldo)
+    
+    def buscarsaldo(self, cvu):             #para el D
+        i=0
+        band=True
+        while i<len(self.__Lcuenta) and band:
+            if cvu == self.__Lcuenta[i].getcvu():
+                saldo=self.__Lcuenta[i].getsaldo()
+                band=False
+            else:
+                i+=1
+        return saldo
+
+    def actualizarsaldo(self,cvu,saldo):    #para el D
         i=0
         band=True
         while i<len(self.__Lcuenta) and band:
@@ -52,8 +75,7 @@ class Gcuenta:
             else:
                 i+=1
     
-    def actporc(self, xpor):
-        self.__Lcuenta[0].setporc(xpor)
+
     
 
     

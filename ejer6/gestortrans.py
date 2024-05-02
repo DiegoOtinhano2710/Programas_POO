@@ -22,9 +22,10 @@ class Gtrans:
                 imp=float(fila[2])
                 tipo=fila[3]
                 unatran=Transaccion(cvu,num,imp,tipo)
+                self.agregar(unatran)
         archivo.close()
 
-    def calcular(self, xcvu):
+    def calcular(self, xcvu):   #para el d
         sum=0
         for i in range(len(self.__Ltrans)):
             if xcvu==self.__Ltrans[i].getcvu():

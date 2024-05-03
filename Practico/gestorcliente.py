@@ -10,7 +10,7 @@ class Gestorcliente:
         self.__listaC.append(nuevo)
     
     def leerdatos(self):
-        archivo=open("ClientesFarmaCiudad.csv")
+        archivo=open('C:/Users/Arias/Desktop/POO/Unidad 2/Practico\\ClientesFarmaCiudad.csv')
         reader=csv.reader(archivo,delimiter=';')
         band=True
         for fila in reader:
@@ -30,7 +30,6 @@ class Gestorcliente:
         i=0
         band=True
         while i<len(self.__listaC) and band==True:
-            print(self.__listaC[i].getnum())
             if self.__listaC[i].getdni() == dni:
                 nom=self.__listaC[i].getnom()
                 ap=self.__listaC[i].getap()

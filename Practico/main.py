@@ -22,8 +22,15 @@ if __name__=='__main__':
             band3=gm.buscarmov(num)
             if band3==True:
                 print("Apellido y Nombre del cliente sin movimientos con DNI {}:{} {}".format(dni,xap,xnom))
+            else:
+                print("El cliente de DNI {} realizó movimientos.".format(dni))
         elif opcion=='c':
-            gm.ordenar
+            print("lista sin ordenar: ")
+            gm.mostrar()
+            gm.ordenar()
+            print('''Lista ordenada
+ ========================================================================''')
+            gm.mostrar()
         elif opcion=='d':
             band=False
             

@@ -11,7 +11,7 @@ class GestorMovimiento:
         self.__listaM=np.append(self.__listaM, nuevo)
     
     def leerdato(self):
-        archivo=open("MovimientosAbril2024.csv")
+        archivo=open('C:/Users/Arias/Desktop/POO/Unidad 2/Practico\\MovimientosAbril2024.csv')
         reader=csv.reader(archivo, delimiter=';')
         band=True
         for fila in reader:
@@ -29,7 +29,7 @@ class GestorMovimiento:
     
     def actualizarsaldo(self, saldo,num):
         i=0
-        print ('''Fecha     Descrpición     importe     Tipo de movimiento''')
+        print ("Fecha       Descrpición         importe         Tipo de movimiento")
         while i<len(self.__listaM):
             if num==self.__listaM[i].getnum():
                 tipo=self.__listaM[i].gettipo()
@@ -40,9 +40,10 @@ class GestorMovimiento:
                     saldo+=imp
                 else:
                     saldo-=imp
-                print (f'{fecha}    {desc}      {imp}       {tipo}')
-            else:
-                i+=1
+                print (f'{fecha}        {desc}  {imp}       {tipo}')
+           
+            i+=1
+        print('Saldo final actualizado: {}'.format(saldo))
         
     
     def buscarmov(self, num):
@@ -57,6 +58,7 @@ class GestorMovimiento:
     
     def ordenar(self):
         self.__listaM=np.sort(self.__listaM)
+    
     def mostrar(self):
         for i in range(len(self.__listaM)):
             print(self.__listaM[i])

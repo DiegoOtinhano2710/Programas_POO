@@ -1,62 +1,26 @@
 [
     {
-        "Usuario": "lol",
-        "Fecha y hora": "15/06/2024 21:23:26",
+        "Jugador": "Diego",
+        "Fecha": "17/06/2024",
+        "Hora": "03:55",
+        "Puntaje": 5
+    },
+    {
+        "Jugador": "Diego",
+        "Fecha": "17/06/2024",
+        "Hora": "03:55",
         "Puntaje": 2
     },
     {
-        "Usuario": "lol",
-        "Fecha y hora": "15/06/2024 21:23:40",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "Deeugi",
-        "Fecha y hora": "15/06/2024 21:27:35",
-        "Puntaje": 3
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:28:40",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:28:57",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:29:03",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:29:04",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:29:05",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:29:10",
+        "Jugador": "carlos",
+        "Fecha": "17/06/2024",
+        "Hora": "04:01",
         "Puntaje": 0
     },
     {
-        "Usuario": "dsadsa",
-        "Fecha y hora": "15/06/2024 21:29:11",
-        "Puntaje": 0
-    },
-    {
-        "Usuario": "quispe",
-        "Fecha y hora": "15/06/2024 21:29:35",
-        "Puntaje": 1
-    },
-    {
-        "Usuario": "quispe",
-        "Fecha y hora": "15/06/2024 21:30:53",
-        "Puntaje": 3
+        "Jugador": "Pili",
+        "Fecha": "17/06/2024",
+        "Hora": "04:03",
+        "Puntaje": 4
     }
 ]

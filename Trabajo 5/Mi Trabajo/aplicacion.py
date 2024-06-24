@@ -32,13 +32,11 @@ def create_app():
                     peso = int(peso)
                 nomdestinatario = request.form.get('nomdestino')
                 dirdestinatario = request.form.get('dirdestino')
-                entregado = False  # El campo entregado se pone en False por defecto
+                entregado = False  
                 ultimo_numeroenvio = db.session.query(func.max(Paquete.numeroenvio)).scalar() or 0
-                # Crea una instancia de la clase Paquete con los datos recibidos
                 nuevo_paquete = Paquete(numeroenvio=ultimo_numeroenvio + 1, peso=peso, nomdestinatario=nomdestinatario,
                                         dirdestinatario=dirdestinatario, entregado=entregado,observaciones=None , idsucursal=sucursal.id, 
                                         idtransporte=None, idrepartidor=None) 
-                # Guarda el paquete en la base de datos
                 db.session.add(nuevo_paquete)
                 db.session.commit()
                 flash("¡Paquete registrado correctamente!")
@@ -56,36 +54,25 @@ def create_app():
 
     @app.route('/registrar_transporte/<int:sucursal_id>', methods=['GET', 'POST'])
     def registrar_transporte(sucursal_id):
-        if request.method != 'POST':
-            return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
         paquetes_elegidos = request.form.getlist('paquetes')
         if not paquetes_elegidos:
-            flash('Error: No se seleccionaron paquetes para el transporte.', 'error')
+            flash('Error: No se seleccionaron paquetes.', 'error')
             return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
         try:
-            # Crea el transporte con destino a esa sucursal
             ultimo_numerotransporte = db.session.query(func.max(Transporte.numerotransporte)).scalar() or 0
             nuevo_transporte = Transporte(numerotransporte=ultimo_numerotransporte + 1, fechahorasalida=datetime.now(),
                                           fechahorallegada=None,idsucursal=sucursal_id)
             db.session.add(nuevo_transporte)
-            db.session.flush()  # Para obtener el ID del nuevo transporte
-            # Asigna el transporte a cada paquete elegido
-            paquetes_asignados = 0
+            db.session.flush()
             for paquete_id in paquetes_elegidos:
-                try:
-                    paquete = Paquete.query.get(int(paquete_id))
-                    if paquete:
-                        paquete.idtransporte = nuevo_transporte.id
-                        paquetes_asignados += 1
-                    else:
-                        flash(f'Advertencia: No se encontró el paquete con ID {paquete_id}', 'warning')
-                except ValueError:
-                    flash(f'Error: ID de paquete inválido: {paquete_id}', 'error')
+                paquete = Paquete.query.get(int(paquete_id))
+                if paquete:
+                    paquete.idtransporte = nuevo_transporte.id
             db.session.commit()
-            flash(f'¡Transporte asignado correctamente a {paquetes_asignados} paquete(s)!', 'success')
+            flash(f'¡Transporte asignado correctamente a  paquete(s)!', 'success')
         except Exception as e:
             db.session.rollback()
-            flash(f'Error inesperado al asignar el transporte: {str(e)}', 'error')
+            flash(f'Error al asignar el transporte: {str(e)}', 'error')
         return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
 
     @app.route('/llegada_transporte/<int:sucursal_id>', methods=['GET','POST'])
@@ -99,11 +86,7 @@ def create_app():
             transporte_id = request.form.get('transporte')
             if transporte_id is None:
                 raise ValueError("No se seleccionó ningún transporte")
-            
             transporte = Transporte.query.get(int(transporte_id))
-            if transporte is None:
-                raise ValueError(f"No se encontró el transporte con ID {transporte_id}")
-            
             transporte.fechahorallegada = datetime.now()
             db.session.commit()
             flash('¡El transporte llegó con éxito!')

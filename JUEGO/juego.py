@@ -14,8 +14,8 @@ class aplicacion(tk.Tk):
     __botones:list
     __colores:list
     __boton_iluminado:list
-    __lista_botones:list            #son los botones que se van a iluminar
-    __lista_botones_usuario:list    #son los botones que va a ir pulsando el usuario
+    __lista_botones:list            
+    __lista_botones_usuario:list    
     #ventana game over
     __game_over:object
     __texto_game_over:object
@@ -67,20 +67,19 @@ class aplicacion(tk.Tk):
         self.__contador_puntos = IntVar(value=0)
         self.__label_contador_puntos=tk.Label(self.__marcador, textvariable=self.__contador_puntos, font=fuente)
         self.__label_contador_puntos.pack(side='right', ipadx='70')
-        #estos son los botones de colores
+        
         self.__boton_verde = tk.Canvas(self, width=230, height=300, bg="#004d00")
         self.__boton_rojo = tk.Canvas(self, width=230, height=300, bg="#4d0000")
         self.__boton_amarillo = tk.Canvas(self, width=230, height=300, bg="#4d4d00")
         self.__boton_azul = tk.Canvas(self, width=230, height=300, bg="#00004d")
         self.__boton_iluminado=None
-        #aquí se van a guardar los botones que se iluminan para reproducirlos del primero al nuevo que se agrega
-        #se establece una lista que va a guardar los botones que clickee el usuario
+
         self.__lista_botones=[]
         self.__lista_botones_usuario=[]
-        #lista de botones y colores
+        
         self.__botones = [self.__boton_verde, self.__boton_rojo, self.__boton_amarillo, self.__boton_azul]
         self.__colores = ["#00FF00", "#FF0000", "#FFFF00", "#0000FF"]
-        #posicionamiento de los botones
+        
         self.__boton_verde.grid(row=2, column=0, sticky='nswe', ipady=50, ipadx=50, padx=7, pady=7)
         self.__boton_rojo.grid(row=2, column=1, sticky='nswe', ipady=50, ipadx=50, padx=7, pady=7)
         self.__boton_amarillo.grid(row=3, column=0, sticky='nswe', ipady=50, ipadx=50, padx=7, pady=7)
@@ -139,7 +138,7 @@ class aplicacion(tk.Tk):
         self.__Ventana_Nombre_de_usuario.place(relx=0.5, rely=0.5, anchor='center')
         self.__label_ingresar_nombre=tk.Label(self.__Ventana_Nombre_de_usuario, text='Jugador', font=fuente2)
         self.__label_ingresar_nombre.grid(row=0, column=0, sticky='nswe', ipadx=5, ipady=5, padx=5, pady=5)
-        limite=(self.register(self.limite_caracteres), '%P')    #esto es para establecer un límite en los caracteres del nombre de jugador
+        limite=(self.register(self.limite_caracteres), '%P')
         self.__entry_nombre=tk.Entry(self.__Ventana_Nombre_de_usuario, validate='key', validatecommand=limite, font=fuente2)
         self.__entry_nombre.grid(row=0, column=2, sticky='nswe', padx=5, pady=5)
         self.__boton_confirmar=tk.Button(self.__Ventana_Nombre_de_usuario, text='Iniciar Juego',font=fuente2,command=self.guardar_Usuario)
@@ -149,8 +148,8 @@ class aplicacion(tk.Tk):
         self.__Ventana_Nombre_de_usuario.wait_window()
         
     def comienzo(self):
-        self.__lista_botones.append(random.randint(0, 3))       #genera un número random de entre 4 y, dependiendo de cuál se generó, se prende un boton u otro
-        self.__lista_botones_usuario.clear()                    #limpia la lista del anterior juego
+        self.__lista_botones.append(random.randint(0, 3))       
+        self.__lista_botones_usuario.clear()                    
         self.iluminar_secuencia(0)
 
     def iluminar_secuencia(self, indice):
@@ -164,8 +163,8 @@ class aplicacion(tk.Tk):
 
     def apretar_boton(self, boton_elegido):
         if self.__boton_iluminado is None:  
-            if boton_elegido in self.__botones:                 #si el boton que clickeo es uno de los 4 botones
-                numero = self.__botones.index(boton_elegido)    #asigna la posición en la lista de ese botón elegido
+            if boton_elegido in self.__botones:                 
+                numero = self.__botones.index(boton_elegido)
                 self.__lista_botones_usuario.append(numero)     
                 if self.__lista_botones_usuario == self.__lista_botones[:len(self.__lista_botones_usuario)]:
                     self.cambiar_color(boton_elegido, numero)
@@ -194,8 +193,8 @@ class aplicacion(tk.Tk):
         boton.after(300, partial(boton.configure, bg=col_original))
 
     def llamar_gameover(self):
-        for boton in self.__botones:            #cuando muestra la pantalla de game over, desvincula el evento de click de los canvas.
-            boton.unbind("<Button-1>")          #esto lo hace para que, si está esa pantalla, no puedas darle click a los botones de fondo. sino, en el json detecta que sigue perdiendo y sigue escribiendo el mismo dato
+        for boton in self.__botones:            
+            boton.unbind("<Button-1>")          
         self.__texto_con_el_puntaje.set(f"Puntuación: {self.__contador_puntos.get()}")
         self.__game_over.place(relx=0.5, rely=0.5, anchor='center')
     
@@ -208,8 +207,8 @@ class aplicacion(tk.Tk):
         self.ejecutar()
 
     def guardar_Usuario(self):
-        user=self.__entry_nombre.get().strip()          #asigna el contenido del entry. el strip() elimina espacios en blanco para evitar que tome como válido si se deja solo un espacio en blanco en el entry
-        if user:                                        #esto va a entrar por el if siempre que user != ''. esto es para que si o si debas meter un nombre de usuario
+        user=self.__entry_nombre.get().strip()      
+        if user:
             self.__Nombre_de_usuario=self.__entry_nombre.get().lstrip().rstrip()
             self.__Ventana_Nombre_de_usuario.destroy()
             self.__texto_reemplazable.set(self.__Nombre_de_usuario)
@@ -219,31 +218,30 @@ class aplicacion(tk.Tk):
 
     def guardar_json(self):
         with open('psymonpuntajes.json', 'r+',encoding='utf-8') as archivo:
-            if not archivo.read(1):                #para ver si está vacío
-                self.__datos = []                  #si lo está, inicia la lista vacía
+            if not archivo.read(1):                
+                self.__datos = []                  
             else:               
-                archivo.seek(0)                   #se pone al inicio de nuevo
-                self.__datos=json.load(archivo)   #lee lo que tiene el archivo
-            self.__datos.append(self.to_dict())   #agrega un diccionario con los datos pedidos
-            archivo.seek(0)                       #se vuelve a posicionar al inicio para sobreescribir
-            json.dump(self.__datos, archivo, indent=4)  #carga la nueva lista de datos
-            archivo.truncate()                    #se usa para reducir el tamaño al mínimo posible y evitar que queden espacios vacíos debajo del contenido
+                archivo.seek(0)                   
+                self.__datos=json.load(archivo)   
+            self.__datos.append(self.to_dict())   
+            archivo.seek(0)                       
+            json.dump(self.__datos, archivo, indent=4)  
 
     def mostrar_puntajes(self):
-        if self.__pantalla_puntajes.winfo_viewable():                                                   #si está visible
-            self.__pantalla_puntajes.place_forget()                                                     #al detectar el click, lo esconde
-        else:                                                                                           #sino (si no está visible)
-            self.__pantalla_puntajes.place(relx=0.5, rely=0.5, anchor='center',width=470, height=400)   #al dar click, lo muestra y ejecuta el resto
+        if self.__pantalla_puntajes.winfo_viewable():                                                   
+            self.__pantalla_puntajes.place_forget()   
+        else:                                                                                           
+            self.__pantalla_puntajes.place(relx=0.5, rely=0.5, anchor='center',width=470, height=400) 
             lista=[]
             gj=gestor_jugadores()
-            gj.ordenar_puntaje()    #llama a la función que va a recuperar el contenido del archivo json para almacenarlo en una lista y, de paso, ordenarla por mayor puntaje
-            lista = gj.getlista()   #trae la lista ya cargada y ordenada
-            self.__lista_jugadores.tag_configure('fuente', font=('Courier', 11))    #establece la fuente con la que se va a mostrar los datos en el scrolledtext
-            self.__lista_jugadores.delete('1.0', tk.END)          #borra el contenido del scrolledtext para que no se escriba lo mismo varias veces
+            gj.ordenar_puntaje()    
+            lista = gj.getlista()   
+            self.__lista_jugadores.tag_configure('fuente', font=('Courier', 11))
+            self.__lista_jugadores.delete('1.0', tk.END)          
             for jugador in lista:
-                self.__lista_jugadores.insert(tk.END, str(jugador) + "\n", 'fuente')    #inserta cada jugador de la lista en el scrolledtext
+                self.__lista_jugadores.insert(tk.END, str(jugador) + "\n", 'fuente')
 
-    def to_dict(self):                            #diccionario con los datos del jugador
+    def to_dict(self):
         fechayhora=datetime.now()
         fecha = fechayhora.strftime("%d/%m/%Y")
         hora = fechayhora.strftime("%H:%M")
@@ -255,17 +253,17 @@ class aplicacion(tk.Tk):
         }
 
     def limite_caracteres(self,cadena):
-        if len(cadena)<=10:                       #se establece el límite de caracteres en 10
+        if len(cadena)<=10:
             band=True
         else:
             band=False
         return band
     
     def mostrar_menu(self):
-        if self.__frame_puntaje.winfo_viewable():           #si el widget está visible
-            self.__frame_puntaje.place_forget()             #lo esconde
-        else:                                               #sino (si no está visible)
-            self.__frame_puntaje.place(y=26, anchor='nw')   #lo muestra
+        if self.__frame_puntaje.winfo_viewable():           
+            self.__frame_puntaje.place_forget()             
+        else:                                              
+            self.__frame_puntaje.place(y=26, anchor='nw')   
 
     def ejecutar(self):
         self.after(1500, self.comienzo)

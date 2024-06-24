@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<button onclick="mostrarSucursales()">Mostrar Sucursales</button>
+<div id="sucursales" style="display: none;">
+    <ul>
+        {% for sucursal in sucursales %}
+            <li>
+                <a href="#" onclick="mostrarMenu(this)">
+                    {{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}
+                </a>
+                <ul style="display: none;">
+                    <li><a href="{{ url_for('paquete', sucursal_id=sucursal.id) }}">Registrar paquete</a></li>
+                    <li><a href="{{ url_for('salida_transporte', sucursal_id=sucursal.id) }}">Salida de transporte</a></li>
+                    <li><a href="{{ url_for('llegada_transporte', sucursal_id=sucursal.id) }}">Llegada de transporte</a></li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+    function mostrarSucursales() {
+        const sucursalesDiv = document.getElementById('sucursales');
+        if (sucursalesDiv.style.display === 'none') {
+            sucursalesDiv.style.display = 'block';
+        } else {
+            sucursalesDiv.style.display = 'none';
+        }
+    }
+
+    function mostrarMenu(element) {
+        const menu = element.nextElementSibling;
+        if (menu.style.display === 'none') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

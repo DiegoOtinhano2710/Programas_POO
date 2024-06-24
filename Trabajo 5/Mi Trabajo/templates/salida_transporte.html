@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Seleccione los paquetes que desea asignarle transporte</h1>
+<form action="/registrar_transporte/{{ sucursal_id }}" method="POST">
+    <ul class="paquetes-list">
+        {% for paquete in lista_paquetes %}
+            {% if paquete.idtransporte is none and paquete.idrepartidor is none %}
+                <li class="paquete-item" onclick="toggleSelection(this)">
+                    <input type="checkbox" name="paquetes" value="{{ paquete.id }}" id="paquete_{{ paquete.id }}">
+                    <label for="paquete_{{ paquete.id }}">
+                        {{ paquete.nombre }}
+                        <span>Número de envío: {{ paquete.numeroenvio }}</span>
+                        <span>- Dirigido a: {{ paquete.dirdestinatario }}</span>
+                    </label>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <button class="registrar-btn" type="submit">Registrar transporte</button>
+</form>
+
+<style>
+    ul.paquetes-list {
+        list-style: none;
+        padding: 0;
+    }
+    li.paquete-item {
+        margin-bottom: 10px;
+        font-size: 18px;
+        background-color: #E0E0E0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    li.paquete-item:hover {
+        background-color: #D0D0D0;
+    }
+    li.paquete-item.selected {
+        background-color: #BBDEFB;
+    }
+    li.paquete-item input[type="checkbox"] {
+        display: none;
+    }
+    li.paquete-item label {
+        display: block;
+        width: 100%;
+        cursor: pointer;
+    }
+    button.registrar-btn {
+        background-color: #FF4136;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+
+<div style="background-color: #333; color: white; padding: 10px; border-radius: 10px;">
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</div>
+
+<script>
+function toggleSelection(element) {
+    var checkbox = element.querySelector('input[type="checkbox"]');
+    checkbox.checked = !checkbox.checked;
+    element.classList.toggle('selected');
+}
+</script>
+{% endblock %}

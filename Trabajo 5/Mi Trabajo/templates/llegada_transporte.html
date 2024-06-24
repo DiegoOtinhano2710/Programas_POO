@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Seleccione el transporte que llegó</h1>
+    <form action="/registrar_llegada/{{ sucursal_id }}" method="POST">
+        <ul class="transporte-list">
+            {% for transporte in lista_transporte %}
+                {% if transporte.fechahorallegada is none and transporte.idsucursal == sucursal_id %}
+                    <li class="transporte-item">
+                        <input type="radio" name="transporte" value="{{ transporte.id }}" id="transporte_{{ transporte.id }}">
+                        <label for="transporte_{{ transporte.id }}">
+                            <span>Número de transporte: {{ transporte.numerotransporte }}</span>
+                            <span>- Salió de destino: {{ transporte.fechahorasalida }}</span>
+                        </label>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="registrar-btn" type="submit">Registrar llegada</button>
+    </form>
+<style>
+    ul.transporte-list {
+        list-style: none;
+        padding: 0;
+    }
+    li.transporte-item {
+        margin-bottom: 10px;
+        font-size: 18px;
+        background-color: #E0E0E0;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    li.transporte-item label {
+        display: inline-block;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    button.registrar-btn {
+        background-color: #FF4136;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+<div style="background-color: #333; color: white; padding: 10px; border-radius: 10px;">
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

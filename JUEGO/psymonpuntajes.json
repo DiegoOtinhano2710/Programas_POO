@@ -1,26 +1,20 @@
 [
     {
-        "Jugador": "Diego",
-        "Fecha": "17/06/2024",
-        "Hora": "03:55",
-        "Puntaje": 5
-    },
-    {
-        "Jugador": "Diego",
-        "Fecha": "17/06/2024",
-        "Hora": "03:55",
-        "Puntaje": 2
-    },
-    {
-        "Jugador": "carlos",
-        "Fecha": "17/06/2024",
-        "Hora": "04:01",
+        "Jugador": "dsadas",
+        "Fecha": "24/06/2024",
+        "Hora": "01:23",
         "Puntaje": 0
     },
     {
-        "Jugador": "Pili",
-        "Fecha": "17/06/2024",
-        "Hora": "04:03",
-        "Puntaje": 4
+        "Jugador": "dsadas",
+        "Fecha": "24/06/2024",
+        "Hora": "01:23",
+        "Puntaje": 1
+    },
+    {
+        "Jugador": "DE",
+        "Fecha": "24/06/2024",
+        "Hora": "01:24",
+        "Puntaje": 3
     }
 ]

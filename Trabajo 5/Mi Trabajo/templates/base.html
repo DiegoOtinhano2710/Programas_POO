@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiPack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #000000; 
+        }
+        h1 {
+            background-color: #00caee;
+            color: #000000;
+            padding: 20px;
+            margin: 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+            font-size: 18px;
+            background-color: #aca2a2; /* Fondo gris más claro */
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente elegante */
+        }
+        li a {
+            text-decoration: none; /* Evita el subrayado del enlace */
+            color: #000; /* Color de texto */
+            display: block; /* Hace que todo el elemento sea clickeable */
+            padding: 5px; /* Espacio alrededor del enlace */
+            border: 1px solid #0074D9; /* Borde celeste */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+        button {
+            background-color: #00caee;
+        color: #000000;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aplicación de LogiPack</h1>
+    <div style="position: absolute; top: 0; right: 0;">
+        <a href="{{ url_for('inicio') }}">
+            <button>Inicio</button>
+        </a>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

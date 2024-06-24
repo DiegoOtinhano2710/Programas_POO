@@ -9,7 +9,6 @@
                 <li class="paquete-item" onclick="toggleSelection(this)">
                     <input type="checkbox" name="paquetes" value="{{ paquete.id }}" id="paquete_{{ paquete.id }}">
                     <label for="paquete_{{ paquete.id }}">
-                        {{ paquete.nombre }}
                         <span>Número de envío: {{ paquete.numeroenvio }}</span>
                         <span>- Dirigido a: {{ paquete.dirdestinatario }}</span>
                     </label>

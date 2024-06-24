@@ -42,7 +42,7 @@ def create_app():
                 flash("¡Paquete registrado correctamente!")
         except Exception as e:
             db.session.rollback()
-            flash(f"Error al registrar el paquete: {str(e)}")
+            flash(f"Error al registrar el paquete")
             return redirect(url_for('paquete', sucursal_id=sucursal_id))
         return render_template('registro_paquete.html', sucursal_id=sucursal_id)
 
@@ -69,10 +69,10 @@ def create_app():
                 if paquete:
                     paquete.idtransporte = nuevo_transporte.id
             db.session.commit()
-            flash(f'¡Transporte asignado correctamente a  paquete(s)!', 'success')
+            flash(f'¡Transporte asignado correctamente a paquete(s)!', 'success')
         except Exception as e:
             db.session.rollback()
-            flash(f'Error al asignar el transporte: {str(e)}', 'error')
+            flash(f'Error al asignar el transporte', 'error')
         return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
 
     @app.route('/llegada_transporte/<int:sucursal_id>', methods=['GET','POST'])
@@ -92,7 +92,7 @@ def create_app():
             flash('¡El transporte llegó con éxito!')
         except Exception as e:
             db.session.rollback()
-            flash(f'Error al asignar la llegada del transporte: {str(e)}')
+            flash(f'Error al asignar la llegada del transporte')
         return redirect(url_for('llegada_transporte', sucursal_id=sucursal_id))
 
 

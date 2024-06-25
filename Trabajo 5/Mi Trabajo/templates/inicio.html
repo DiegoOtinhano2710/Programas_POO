@@ -1,40 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<button onclick="mostrarSucursales()">Mostrar Sucursales</button>
-<div id="sucursales" style="display: none;">
-    <ul>
+<div class="sucursales-container">
+    <h2>Seleccione la sucursal donde desea operar</h2>
+    <div class="button-container">
         {% for sucursal in sucursales %}
-            <li>
-                <a href="#" onclick="mostrarMenu(this)">
-                    {{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}
-                </a>
-                <ul style="display: none;">
-                    <li><a href="{{ url_for('paquete', sucursal_id=sucursal.id) }}">Registrar paquete</a></li>
-                    <li><a href="{{ url_for('salida_transporte', sucursal_id=sucursal.id) }}">Salida de transporte</a></li>
-                    <li><a href="{{ url_for('llegada_transporte', sucursal_id=sucursal.id) }}">Llegada de transporte</a></li>
-                </ul>
-            </li>
+            <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal.id) }}" class="custom-button">
+                {{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}
+            </a>
         {% endfor %}
-    </ul>
+    </div>
 </div>
-<script>
-    function mostrarSucursales() {
-        const sucursalesDiv = document.getElementById('sucursales');
-        if (sucursalesDiv.style.display === 'none') {
-            sucursalesDiv.style.display = 'block';
-        } else {
-            sucursalesDiv.style.display = 'none';
-        }
+
+<style>
+    .sucursales-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
     }
 
-    function mostrarMenu(element) {
-        const menu = element.nextElementSibling;
-        if (menu.style.display === 'none') {
-            menu.style.display = 'block';
-        } else {
-            menu.style.display = 'none';
-        }
+    h2 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 10px;
     }
-</script>
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-button {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        padding: 15px 20px;
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #056fe0;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-button:hover {
+        background-color: #056fe0;
+    }
+
+    .custom-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
 {% endblock %}

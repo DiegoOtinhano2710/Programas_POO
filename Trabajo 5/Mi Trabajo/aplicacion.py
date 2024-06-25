@@ -21,6 +21,11 @@ def create_app():
         lista_sucursales=Sucursal.query.all()
         return render_template('inicio.html', sucursales=lista_sucursales)
     
+    @app.route('/sucursal/<int:sucursal_id>')
+    def sucursal_elegida(sucursal_id):
+        sucursal=Sucursal.query.get(sucursal_id)
+        return render_template('sucursal.html', sucursal=sucursal)
+    
     @app.route('/paquete/<int:sucursal_id>', methods=['GET','POST'])
     def paquete(sucursal_id):
         try:
@@ -40,9 +45,9 @@ def create_app():
                 db.session.add(nuevo_paquete)
                 db.session.commit()
                 flash("¡Paquete registrado correctamente!")
-        except Exception as e:
+        except:
             db.session.rollback()
-            flash(f"Error al registrar el paquete: {str(e)}")
+            flash(f"Error al registrar el paquete")
             return redirect(url_for('paquete', sucursal_id=sucursal_id))
         return render_template('registro_paquete.html', sucursal_id=sucursal_id)
 
@@ -56,7 +61,7 @@ def create_app():
     def registrar_transporte(sucursal_id):
         paquetes_elegidos = request.form.getlist('paquetes')
         if not paquetes_elegidos:
-            flash('Error: No se seleccionaron paquetes.', 'error')
+            flash('Error: No se seleccionaron paquetes.')
             return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
         try:
             ultimo_numerotransporte = db.session.query(func.max(Transporte.numerotransporte)).scalar() or 0
@@ -69,12 +74,12 @@ def create_app():
                 if paquete:
                     paquete.idtransporte = nuevo_transporte.id
             db.session.commit()
-            flash(f'¡Transporte asignado correctamente a  paquete(s)!', 'success')
-        except Exception as e:
+            flash(f'¡Transporte asignado correctamente a  paquete(s)!')
+        except:
             db.session.rollback()
-            flash(f'Error al asignar el transporte: {str(e)}', 'error')
+            flash(f'Error al asignar el transporte')
         return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
-
+ 
     @app.route('/llegada_transporte/<int:sucursal_id>', methods=['GET','POST'])
     def llegada_transporte(sucursal_id):
         lista_transporte=Transporte.query.all()
@@ -90,9 +95,9 @@ def create_app():
             transporte.fechahorallegada = datetime.now()
             db.session.commit()
             flash('¡El transporte llegó con éxito!')
-        except Exception as e:
+        except:
             db.session.rollback()
-            flash(f'Error al asignar la llegada del transporte: {str(e)}')
+            flash(f'Error al asignar la llegada del transporte')
         return redirect(url_for('llegada_transporte', sucursal_id=sucursal_id))
 
 

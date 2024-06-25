@@ -13,9 +13,10 @@
             background-color: #000000; 
         }
         h1 {
-            background-color: #00caee;
-            color: #000000;
-            padding: 20px;
+            background-color: #056fe0;
+            color: #ffffff;
+            font-size: 50px;
+            padding: 25px;
             margin: 0;
         }
         ul {
@@ -38,23 +39,11 @@
             border: 1px solid #0074D9; /* Borde celeste */
             border-radius: 5px; /* Bordes redondeados */
         }
-        button {
-            background-color: #00caee;
-        color: #000000;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 5px;
-        font-size: 18px;
-        }
     </style>
 </head>
 <body>
     <h1>Aplicación de LogiPack</h1>
     <div style="position: absolute; top: 0; right: 0;">
-        <a href="{{ url_for('inicio') }}">
-            <button>Inicio</button>
-        </a>
     </div>
     {% block content %}
     {% endblock %}

@@ -1,21 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Ingrese los datos del paquete:</h1>
+<h2>Ingrese los datos del paquete:</h2>
 <form method="POST" action="{{ url_for('paquete', sucursal_id=sucursal_id) }}">
-    <label for="peso" style="color: white;">Peso del paquete:</label>
-    <input type="text" name="peso" required style="color: rgb(0, 0, 0); font-size: 16px; padding: 10px;"><br>
+    <label for="peso" style="color: white; font-size: 23px;">Peso del paquete:</label>
+    <input type="text" name="peso" required style="color: rgb(0, 0, 0); font-size: 23px; padding: 10px;"><br>
 
-    <label for="nomdestino" style="color: white;">Nombre del destinatario:</label>
-    <input type="text" name="nomdestino" required style="color: rgb(0, 0, 0); font-size: 16px; padding: 10px;"><br>
+    <label for="nomdestino" style="color: white; font-size: 23px;">Nombre del destinatario:</label>
+    <input type="text" name="nomdestino" required style="color: rgb(0, 0, 0); font-size: 23px; padding: 10px;"><br>
 
-    <label for="dirdestino" style="color: white;">Dirección del destinatario:</label>
-    <input type="text" name="dirdestino" required style="color: rgb(0, 0, 0); font-size: 16px; padding: 10px;"><br>
-    <input type="submit" value="Registrar paquete" style="background-color: #007bff; color: white; font-size: 16px; padding: 10px; border-radius: 10px;">
+    <label for="dirdestino" style="color: white; font-size: 23px;">Dirección del destinatario:</label>
+    <input type="text" name="dirdestino" required style="color: rgb(0, 0, 0); font-size: 23px; padding: 10px;"><br>
+    <input type="submit" value="Registrar paquete" style="background-color: #056fe0; color: white; font-size: 20px; padding: 10px; border-radius: 10px; cursor: pointer;">
+    <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
+        Volver a las funcionalidades
+    </a>
 </form>
+<style>
+    h2 {
+        font-size: 25px;
+        color: white;
+    }
+    .custom-button {
+        display: inline-block;
+        color: white;
+        background-color: #056fe0;
+        font-size: 20px;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 10px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+</style>
 <div style="background-color: #333; color: white; padding: 10px; border-radius: 10px;">
     {% for message in get_flashed_messages() %}
         <p>{{ message }}</p>
     {% endfor %}
 </div>
+
+
 {% endblock %}

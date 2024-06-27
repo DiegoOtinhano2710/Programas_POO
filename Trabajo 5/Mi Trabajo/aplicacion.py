@@ -26,6 +26,13 @@ def create_app():
         sucursal=Sucursal.query.get(sucursal_id)
         return render_template('sucursal.html', sucursal=sucursal)
     
+    @app.route('/sucursal_origen/<int:sucursal_id>')
+    def sucursal_origen(sucursal_id):
+        sucursal=Sucursal.query.get(sucursal_id)
+        return render_template('sucursal.html', sucursal=sucursal)
+    
+
+    
     @app.route('/paquete/<int:sucursal_id>', methods=['GET','POST'])
     def paquete(sucursal_id):
         try:
@@ -50,10 +57,15 @@ def create_app():
             flash(f"Error al registrar el paquete")
             return redirect(url_for('paquete', sucursal_id=sucursal_id))
         return render_template('registro_paquete.html', sucursal_id=sucursal_id)
-
+    
     
     @app.route('/salida_transporte/<int:sucursal_id>', methods=['GET','POST'])
     def salida_transporte(sucursal_id):
+        sucursales=Sucursal.query.all()
+        return render_template('sucursal_destino.html', sucursales=sucursales)
+
+    @app.route('/transporte/<int:sucursal_id>', methods=['GET','POST'])
+    def sucursal_destino(sucursal_id):
         lista_paquetes=Paquete.query.all()
         return render_template('salida_transporte.html', sucursal_id=sucursal_id, lista_paquetes=lista_paquetes)
 
@@ -74,11 +86,11 @@ def create_app():
                 if paquete:
                     paquete.idtransporte = nuevo_transporte.id
             db.session.commit()
-            flash(f'¡Transporte asignado correctamente a  paquete(s)!')
+            flash(f'¡Transporte asignado correctamente a paquete(s)!')
         except:
             db.session.rollback()
             flash(f'Error al asignar el transporte')
-        return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
+        return redirect(url_for('sucursal_destino', sucursal_id=sucursal_id))
  
     @app.route('/llegada_transporte/<int:sucursal_id>', methods=['GET','POST'])
     def llegada_transporte(sucursal_id):

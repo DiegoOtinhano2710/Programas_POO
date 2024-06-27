@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class="sucursales-container">
-    <h2>Seleccione la sucursal donde desea operar</h2>
+    <h2>Seleccione una sucursal</h2>
     <div class="button-container">
         {% for sucursal in sucursales %}
-            <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal.id) }}" class="custom-button">
+            <a href="{{ url_for('sucursal_origen', sucursal_id=sucursal.id) }}" class="custom-button">
                 {{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}
             </a>
         {% endfor %}

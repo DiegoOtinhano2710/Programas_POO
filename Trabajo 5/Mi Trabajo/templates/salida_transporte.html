@@ -28,16 +28,16 @@
                 {% endfor %}
             </div>
             <div class="action-buttons">
-                <button class="custom-button" type="submit">Asignar transporte</button>
-                <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
-                    Volver a las funcionalidades
+                <button class="custom-button" type="submit">Registrar transporte</button>
+                <a href="{{ url_for('sucursal_origen', sucursal_id=sucursal_id) }}" class="custom-button">
+                Volver a las funcionalidades
                 </a>
             </div>
         </form>
     {% else %}
         <p class="no-paquetes-mensaje">No hay paquetes disponibles para asignar transporte.</p>
         <div class="action-buttons">
-            <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
+            <a href="{{ url_for('sucursal_origen', sucursal_id=sucursal_id) }}" class="custom-button">
                 Volver a las funcionalidades
             </a>
         </div>

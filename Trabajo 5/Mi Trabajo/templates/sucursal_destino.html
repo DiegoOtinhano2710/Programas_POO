@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sucursales-container">
+    <h2>Seleccione una sucursal</h2>
+    <div class="button-container">
+        {% for sucursal in sucursales %}
+            <a href="{{ url_for('sucursal_destino', sucursal_id=sucursal.id) }}" class="custom-button">
+                {{ sucursal.numero }} - {{ sucursal.provincia }} - {{ sucursal.localidad }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .sucursales-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .custom-button {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        padding: 15px 20px;
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #056fe0;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-button:hover {
+        background-color: #056fe0;
+    }
+
+    .custom-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}

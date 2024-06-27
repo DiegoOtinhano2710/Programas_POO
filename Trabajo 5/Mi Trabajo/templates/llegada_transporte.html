@@ -28,7 +28,7 @@
             </div>
             <div class="action-buttons">
                 <button class="custom-button" type="submit">Registrar llegada</button>
-                <a href="{{ url_for('registrar_llegada', sucursal_id=sucursal_id) }}" class="custom-button">
+                <a href="{{ url_for('sucursal_origen', sucursal_id=sucursal_id) }}" class="custom-button">
                 Volver a las funcionalidades
                 </a>
             </div>
@@ -36,7 +36,7 @@
     {% else %}
         <p class="no-transporte-mensaje">No llegaron transportes.</p>
         <div class="action-buttons">
-            <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
+            <a href="{{ url_for('sucursal_origen', sucursal_id=sucursal_id) }}" class="custom-button">
                 Volver a las funcionalidades
             </a>
         </div>

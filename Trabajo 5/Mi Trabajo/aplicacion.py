@@ -61,7 +61,7 @@ def create_app():
     def registrar_transporte(sucursal_id):
         paquetes_elegidos = request.form.getlist('paquetes')
         if not paquetes_elegidos:
-            flash('Error: No se seleccionaron paquetes.')
+            flash('Seleccione algún paquete.')
             return redirect(url_for('salida_transporte', sucursal_id=sucursal_id))
         try:
             ultimo_numerotransporte = db.session.query(func.max(Transporte.numerotransporte)).scalar() or 0
@@ -87,17 +87,18 @@ def create_app():
 
     @app.route('/registrar_llegada/<int:sucursal_id>', methods=['GET','POST'])
     def registrar_llegada(sucursal_id):
-        try: 
-            transporte_id = request.form.get('transporte')
-            if transporte_id is None:
-                raise ValueError("No se seleccionó ningún transporte")
+        transporte_id = request.form.get('transporte')
+        if transporte_id is None:
+            flash("Seleccione algún transporte")
+            return redirect(url_for('llegada_transporte', sucursal_id=sucursal_id))
+        try:
             transporte = Transporte.query.get(int(transporte_id))
             transporte.fechahorallegada = datetime.now()
             db.session.commit()
             flash('¡El transporte llegó con éxito!')
         except:
             db.session.rollback()
-            flash(f'Error al asignar la llegada del transporte')
+            flash('Error al asignar la llegada del transporte')
         return redirect(url_for('llegada_transporte', sucursal_id=sucursal_id))
 
 

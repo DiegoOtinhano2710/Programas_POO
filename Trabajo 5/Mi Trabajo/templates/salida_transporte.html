@@ -2,32 +2,59 @@
 
 {% block content %}
 <div class="paquetes-container">
+    {% set contador = namespace(value=0) %}
+    {% for paquete in lista_paquetes %}
+        {% if paquete.idtransporte is none and paquete.idrepartidor is none %}
+            {% set contador.value = contador.value + 1 %}
+        {% endif %}
+    {% endfor %}
+
     <h2>Seleccione los paquetes que desea asignarle transporte</h2>
-    <form action="/registrar_transporte/{{ sucursal_id }}" method="POST">
-        <div class="button-container">
-            {% for paquete in lista_paquetes %}
-                {% if paquete.idtransporte is none and paquete.idrepartidor is none %}
-                    <div class="custom-button paquete-item">
-                        <input type="checkbox" name="paquetes" value="{{ paquete.id }}" id="paquete_{{ paquete.id }}">
-                        <label for="paquete_{{ paquete.id }}">
-                            {{ paquete.nombre }}
-                            <span>Número de envío: {{ paquete.numeroenvio }}</span>
-                            <span>- Dirigido a: {{ paquete.dirdestinatario }}</span>
-                        </label>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+    {% if contador.value > 0 %}
+        <form action="/registrar_transporte/{{ sucursal_id }}" method="POST">
+            <input type="hidden" name="contador" value="{{ contador.value }}">
+            <div class="button-container">
+                {% for paquete in lista_paquetes %}
+                    {% if paquete.idtransporte is none and paquete.idrepartidor is none %}
+                        <div class="custom-button paquete-item">
+                            <input type="checkbox" name="paquetes" value="{{ paquete.id }}" id="paquete_{{ paquete.id }}">
+                            <label for="paquete_{{ paquete.id }}">
+                                {{ paquete.nombre }}
+                                <span>Número de envío: {{ paquete.numeroenvio }}</span>
+                                <span>- Dirigido a: {{ paquete.dirdestinatario }}</span>
+                            </label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="action-buttons">
+                <button class="custom-button" type="submit">Asignar transporte</button>
+                <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
+                    Volver a las funcionalidades
+                </a>
+            </div>
+        </form>
+    {% else %}
+        <p class="no-paquetes-mensaje">No hay paquetes disponibles para asignar transporte.</p>
         <div class="action-buttons">
-            <button class="custom-button" type="submit">Registrar transporte</button>
             <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
                 Volver a las funcionalidades
             </a>
         </div>
-    </form>
+    {% endif %}
 </div>
 
 <style>
+    .no-paquetes-mensaje {
+        text-align: center;
+            color: #ffffff;
+            background-color: #000000;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+    }
     .paquetes-container {
         max-width: 800px;
         margin: 0 auto;
@@ -49,6 +76,7 @@
     }
 
     .custom-button {
+        text-align: center;
         display: flex;
         align-items: center;
         width: 100%;
@@ -127,7 +155,6 @@
         max-width: 250px;
     }
 </style>
-
 <div style="background-color: #333; color: white; padding: 10px; border-radius: 10px; margin-top: 20px;">
     {% for message in get_flashed_messages() %}
         <p>{{ message }}</p>

@@ -1,32 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="transportes-container">
+<div class="paquetes-container">
+    {% set contador = namespace(value=0) %}
+    {% for transporte in lista_transporte %}
+        {% if transporte.fechahorallegada is none and transporte.idsucursal == sucursal_id %}
+            {% set contador.value = contador.value + 1 %}
+        {% endif %}
+    {% endfor %}
+
     <h2>Seleccione el transporte que llegó a destino</h2>
-    <form action="/registrar_llegada/{{ sucursal_id }}" method="POST">
-        <div class="button-container">
-            {% for transporte in lista_transporte %}
-                {% if transporte.fechahorallegada is none and transporte.idsucursal == sucursal_id %}
-                    <div class="custom-button transporte-item">
-                        <input type="radio" name="transporte" value="{{ transporte.id }}" id="transporte_{{ transporte.id }}">
-                        <label for="transporte_{{ transporte.id }}">
-                            <span>Número de transporte: {{ transporte.numerotransporte }}</span>
-                            <span>- Salió de destino: {{ transporte.fechahorasalida }}</span>
-                        </label>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+    {% if contador.value > 0 %}
+        <form action="/registrar_llegada/{{ sucursal_id }}" method="POST">
+            <input type="hidden" name="contador" value="{{ contador.value }}">
+            <div class="button-container">
+                {% for transporte in lista_transporte %}
+                    {% if transporte.fechahorallegada is none and transporte.idsucursal == sucursal_id %}
+                        <div class="custom-button transporte-item">
+                            <input type="radio" name="transporte" value="{{ transporte.id }}" id="transporte_{{ transporte.id }}">
+                            <label for="transporte_{{ transporte.id }}">
+                                <span>Número de transporte: {{ transporte.numerotransporte }}</span>
+                                <span>- Salió de destino: {{ transporte.fechahorasalida }}</span>
+                            </label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="action-buttons">
+                <button class="custom-button" type="submit">Registrar llegada</button>
+                <a href="{{ url_for('registrar_llegada', sucursal_id=sucursal_id) }}" class="custom-button">
+                Volver a las funcionalidades
+                </a>
+            </div>
+        </form>
+    {% else %}
+        <p class="no-transporte-mensaje">No llegaron transportes.</p>
         <div class="action-buttons">
-            <button class="custom-button" type="submit">Registrar llegada</button>
             <a href="{{ url_for('sucursal_elegida', sucursal_id=sucursal_id) }}" class="custom-button">
                 Volver a las funcionalidades
             </a>
         </div>
-    </form>
+    {% endif %}
 </div>
 
 <style>
+    .no-transporte-mensaje {
+        text-align: center;
+            color: #ffffff;
+            background-color: #000000;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+    }
     .transportes-container {
         max-width: 800px;
         margin: 0 auto;
